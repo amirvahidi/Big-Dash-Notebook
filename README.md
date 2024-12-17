@@ -1,2 +1,2 @@
-# sharificpc
-Sharif ICPC Team Notebook
+# ICPC Notebook
+Big Dash ICPC Team Notebook
