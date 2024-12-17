@@ -1,0 +1,12 @@
+An equations of the general form $ax + by = c$ where $a, b, c$ are given integers.
+\begin{itemize}
+    \item 
+        finding one solution: $a = 0 , b = 0 \Longrightarrow c = 0, x \in Z , y \in Z$ \\
+        $g = gcd(a, b), ax_g + by_g = g, g | c \Longrightarrow x = x_g\frac{c}{g}, y = y_g\frac{c}{g}$
+    \item 
+        finding all solutions: $x' = x + k\frac{b}{g}, y' = y - k\frac{a}{g}$
+    \item 
+        solutions in range: if $a = 0$ or $b = 0$ the answer is unique \\ $(min_x - x)\frac{g}{b} \leq k \leq (max_x - x)\frac{g}{b}, -(min_y - y)\frac{g}{a} \geq k \geq -(max_y - y)\frac{g}{a}$
+    \item 
+        minimun $x + y$: minimum $k$ if $a < b$, maximum $k$ if $a > b$
+\end{itemize}

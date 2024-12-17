@@ -5,6 +5,8 @@ tester.sh	Tester for Bash
 primality_test.cpp	Primality Test
 linear_sieve.cpp	Linear Sieve
 integration.cpp	Integration
+extended_euclidean.cpp	Extended Euclidean Algorithm
+diophantine_equation.tex	Linear Diophantine Equation
 
 [Geometry]
 geometry_complex.cpp	Geometry Primitives with Complex
