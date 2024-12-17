@@ -1,0 +1,72 @@
+[Tester]
+tester.sh	Tester for Bash
+
+[Number theory]
+primality_test.cpp	Primality Test
+linear_sieve.cpp	Linear Sieve
+integration.cpp	Integration
+
+[Geometry]
+geometry_complex.cpp	Geometry Primitives with Complex
+geometry_primitives.cpp	Geometry Primitives
+intersection.cpp	Line intersection
+LineCircleIntersection.cpp	Line and circle intersection
+CirclesIntersection.cpp	Intersection of two circles
+rotating_calipers.cpp	Rotating Calipers
+delaunay.cpp	Delaunay Triangulation $O(n^2)$
+delaunay_pro.cpp	Delaunay $O(n \log^2 n)$
+ConvexHull3D.cpp	Convex Hull 3D
+halfplane.cpp	Half Plane Intersection
+mec.cpp	Minimum Enclosing Circle
+PointsInsidePolygon.txt	Number of integer points inside polygon
+useful-geo.txt	Useful Geo Facts
+Duality.tex	Duality and properties
+
+[String]
+SuffixArray.cpp	Suffix Array
+suffix-automata.cpp	Suffix Automata
+suffix-tree.cpp	Suffix Tree
+palindromic-tree.cpp	Palindromic Tree
+
+[Data structure]
+OrderedSet.cpp	Ordered Set
+treap.cpp	Treap
+treap-full.cpp	Treap Full
+link-cut.cpp	Link-cut Tree
+DCHT3.cpp	Dynimic convex hull
+hld.cpp	Heavy-Light Decomposition
+
+[Graph]
+edmonds.cpp	Maximum matching - Edmond's blossom
+bicon.cpp	Biconnected components
+Dinic.cpp	Flow - Dinic
+mincostmaxflow.cpp	Min Cost Max Flow
+hungarian.cpp	Maximum weighted matching - Hungarian
+EarDecomposition.txt	Ear decomposition
+stoer-wagner.cpp	Stoer-Wagner min cut $O(n^3)$
+dmst_mlogn.cpp	Directed minimum spanning tree $O(m \log n)$
+dmst_nm.cpp	Directed minimum spanning tree $O(nm)$
+dominator.cpp	Dominator tree
+
+[Combinatorics]
+simplex.cpp	LP simplex
+matrix_game.cpp	LP for game theory
+fft.cpp	FFT
+ntt.cpp	NTT
+BaseVectorsZ2.cpp	Base Vectors in Z2
+gauss.cpp	Gaussian Elimination
+stirling.cpp	Stirling 1
+chinese_remainder.cpp	Chinese remainder
+Stirling2.tex	Stirling 2
+PopularLP.tex	Popular LP
+LPDuality.tex	Duality of LP
+ExtendedCatalan.tex	Extended catalan
+Polynomial.tex	Find polynomial from it's points
+
+[Constants]
+NumberOfPrimes.txt	Number of primes
+Factorials.txt	Factorials
+PowersOf3.txt	Powers of 3
+C_2n,n_.txt	C(2n,n)
+MostDivisor.txt	Most divisor
+comb.pdf	Combinatorics Cheat Sheet
