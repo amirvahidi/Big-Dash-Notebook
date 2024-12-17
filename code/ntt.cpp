@@ -46,3 +46,36 @@ void ntt(int *a, bool inv){
 			a[i] = 1LL * a[i] * x % MOD;
 	}
 }
+
+// sohsoh ntt
+const ll ROOT = 3; // primitive root of MOD
+const ll MOD = 998244353;
+
+inline void NTT(ll* A, int n, bool inv) {
+	int lg = __builtin_ctz(n);
+	for (int i = 1; i < n; i++) {
+		rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (lg - 1));
+		if (rev[i] < i) swap(A[i], A[rev[i]]);
+	}
+
+	for (int len = 1; len < n; len <<= 1) {
+		ll wn = poww(ROOT, MOD / 2 / len);
+		if (inv) wn = poww(wn, MOD - 2);
+
+		for (int i = 0; i < n; i += 2 * len) {
+			ll w = 1;
+			for (int j = i; j < i + len; j++) {
+				ll x = A[j], y = w * A[j + len] % MOD;
+				A[j] = (x + y) % MOD;
+				A[j + len] = (x - y + MOD) % MOD;
+				w = w * wn % MOD;
+			}
+		}
+	}
+
+	if (inv) {
+		ll n_inv = poww(n, MOD - 2);
+		for (int i = 0; i < n; i++)
+			A[i] = A[i] * n_inv % MOD;
+	}
+}

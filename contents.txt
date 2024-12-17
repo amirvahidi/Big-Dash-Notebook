@@ -55,6 +55,7 @@ simplex.cpp	LP simplex
 matrix_game.cpp	LP for game theory
 fft.cpp	FFT
 ntt.cpp	NTT
+fwht.cpp	FWHT
 BaseVectorsZ2.cpp	Base Vectors in Z2
 gauss.cpp	Gaussian Elimination
 stirling.cpp	Stirling 1
