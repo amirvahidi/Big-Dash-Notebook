@@ -1,50 +1,31 @@
-const int LG = 20; // IF YOU WANT TO CONVOLVE TWO ARRAYS OF LENGTH N AND M CHOOSE LG IN SUCH A WAY THAT 2^LG > n + m
-const int MAX = 1 << LG;
-struct point{
-	double real, imag;
-	point(double _real = 0.0, double _imag = 0.0){
-		real = _real;
-		imag = _imag;
-	}
-};
-point operator + (point a, point b){
-	return point(a.real + b.real, a.imag + b.imag);
-}
-point operator - (point a, point b){
-	return point(a.real - b.real, a.imag - b.imag);
-}
-point operator * (point a, point b){
-	return point(a.real * b.real - a.imag * b.imag, a.real * b.imag + a.imag * b.real);
-}
+typedef complex<double> point;
+const double pi=acos(-1);
+const int mod=998244353;
+const int N=(1<<20);
 
-void fft(point *a, bool inv){
-	for (int mask = 0; mask < MAX; mask++){
-		int rev = 0;
-		for (int i = 0; i < LG; i++)
-			if ((1 << i) & mask)
-				rev |= (1 << (LG - 1 - i));
-		if (mask < rev)
-			swap(a[mask], a[rev]);
-	}
-	for (int len = 2; len <= MAX; len *= 2){
-		double ang = 2.0 * M_PI / len;
-		if (inv)
-			ang *= -1.0;
-		point wn(cos(ang), sin(ang));
-		for (int i = 0; i < MAX; i += len){
-			point w(1.0, 0.0);
-			for (int j = 0; j < len / 2; j++){
-				point t1 = a[i + j] + w * a[i + j + len / 2];
-				point t2 = a[i + j] - w * a[i + j + len / 2];
-				a[i + j] = t1;
-				a[i + j + len / 2] = t2;
-				w = w * wn;
-			}
-		}
-	}
-	if (inv)
-		for (int i = 0; i < MAX; i++){
-			a[i].real /= MAX;
-			a[i].imag /= MAX;
-		}
+int rev[N];
+
+void FFT(point *A, int n, bool inv){
+    int lg=__builtin_ctz(n);
+    for (int i=1; i<n; i++){
+        rev[i]=(rev[i>>1]>>1)|((i&1)<<(lg-1));
+        if (rev[i]<i) swap(A[i], A[rev[i]]);
+    }
+    for (int len=1; len<n; len<<=1){
+        double theta=pi/len;
+        if (inv) theta*=-1;
+        point wn=point(cos(theta), sin(theta));
+        for (int i=0; i<n; i+=2*len){
+            point w=1;
+            for (int j=i; j<i+len; j++){
+                point x=A[j], y=w*A[j+len];
+                A[j]=x+y;
+                A[j+len]=x-y;
+                w*=wn;
+            }
+        }
+    }
+    if (inv){
+        for (int i=0; i<n; i++) A[i]/=n;
+    }
 }
