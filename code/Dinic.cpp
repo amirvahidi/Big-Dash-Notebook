@@ -1,66 +1,81 @@
-template <int MAXN, int MAXM, typename T> // NOT TESTED
-struct Dinic {
-    int dist[MAXN], ptr[MAXN], m, from[MAXM << 2], to[MAXM << 2];
-    T cap[MAXM << 2], f[MAXM << 2];
-    vector<int> adj[MAXN];
-    Dinic() {}
-    int add_edge(int u, int v, T c) {
-        cap[m] = c;
-        from[m] = u, to[m] = v;
-        adj[u].push_back(m);
-        m++;
-        cap[m] = 0;
-        from[m] = v, to[m] = u;
-        adj[v].push_back(m);
-        m++;
+struct FlowEdge {
+    int v, u;
+    long long cap, flow = 0;
+    FlowEdge(int v, int u, long long cap) : v(v), u(u), cap(cap) {}
+};
 
-        return m - 2;
+struct Dinic {
+    const long long flow_inf = 1e18;
+    vector<FlowEdge> edges;
+    vector<vector<int>> adj;
+    int n, m = 0;
+    int s, t;
+    vector<int> level, ptr;
+    queue<int> q;
+
+    Dinic(int n, int s, int t) : n(n), s(s), t(t) {
+        adj.resize(n);
+        level.resize(n);
+        ptr.resize(n);
     }
-    void BFS(int v) {
-        memset(ptr, 0, sizeof ptr);
-        memset(dist, 63, sizeof dist);
-        queue<int> q;
-        q.push(v);
-        dist[v] = 0;
+
+    void add_edge(int v, int u, long long cap) {
+        edges.emplace_back(v, u, cap);
+        edges.emplace_back(u, v, 0);
+        adj[v].push_back(m);
+        adj[u].push_back(m + 1);
+        m += 2;
+    }
+
+    bool bfs() {
         while (!q.empty()) {
-            v = q.front();
+            int v = q.front();
             q.pop();
-            for (int ind : adj[v]) {
-                int u = from[ind] ^ to[ind] ^ v;
-                if (cap[ind] && dist[u] > dist[v] + 1) {
-                    dist[u] = dist[v] + 1;
-                    q.push(u);
-                }
+            for (int id : adj[v]) {
+                if (edges[id].cap == edges[id].flow)
+                    continue;
+                if (level[edges[id].u] != -1)
+                    continue;
+                level[edges[id].u] = level[v] + 1;
+                q.push(edges[id].u);
             }
         }
+        return level[t] != -1;
     }
 
-    T dfs(int v, int t, T max_cap) {
+    long long dfs(int v, long long pushed) {
+        if (pushed == 0)
+            return 0;
         if (v == t)
-            return max_cap;
-
-        T ans = 0;
-        while (ptr[v] < int(adj[v].size())) {
-            int ind = adj[v][ptr[v]++];
-            int u = from[ind] ^ to[ind] ^ v;
-            if (dist[u] != dist[v] + 1 || !cap[ind])
+            return pushed;
+        for (int& cid = ptr[v]; cid < (int)adj[v].size(); cid++) {
+            int id = adj[v][cid];
+            int u = edges[id].u;
+            if (level[v] + 1 != level[u])
                 continue;
-            T tmp = dfs(u, t, min(max_cap, cap[ind]));
-            max_cap -= tmp;
-            cap[ind] -= tmp, cap[ind ^ 1] += tmp;
-            ans += tmp;
-            if (max_cap == 0) break;
+            long long tr = dfs(u, min(pushed, edges[id].cap - edges[id].flow));
+            if (tr == 0)
+                continue;
+            edges[id].flow += tr;
+            edges[id ^ 1].flow -= tr;
+            return tr;
         }
-        return ans;
+        return 0;
     }
-    T max_flow(int s, int t) {
-        ll ans = 0;
+
+    long long flow() {
+        long long f = 0;
         while (true) {
-            BFS(s);
-            if (dist[t] > MAXN + 5)
+            fill(level.begin(), level.end(), -1);
+            level[s] = 0;
+            q.push(s);
+            if (!bfs())
                 break;
-            ans += dfs(s, t, numeric_limits<T>::max());
+            fill(ptr.begin(), ptr.end(), 0);
+            while (long long pushed = dfs(s, flow_inf)) {
+                f += pushed;
+            }
         }
-        return ans;
+        return f;
     }
 };

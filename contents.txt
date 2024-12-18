@@ -6,7 +6,7 @@ primality_test.cpp	Primality Test
 linear_sieve.cpp	Linear Sieve
 integration.cpp	Integration
 extended_euclidean.cpp	Extended Euclidean Algorithm
-diophantine_equation.tex	Linear Diophantine Equation
+diophanti.cpp	Linear Diophantine Equation
 
 [Geometry]
 geometry_complex.cpp	Geometry Primitives with Complex
@@ -33,10 +33,7 @@ palindromic-tree.cpp	Palindromic Tree
 [Data structure]
 OrderedSet.cpp	Ordered Set
 treap.cpp	Treap
-treap-full.cpp	Treap Full
-link-cut.cpp	Link-cut Tree
 DCHT3.cpp	Dynimic convex hull
-hld.cpp	Heavy-Light Decomposition
 
 [Graph]
 edmonds.cpp	Maximum matching - Edmond's blossom
@@ -56,20 +53,14 @@ matrix_game.cpp	LP for game theory
 fft.cpp	FFT
 ntt.cpp	NTT
 fwht.cpp	FWHT
-BaseVectorsZ2.cpp	Base Vectors in Z2
-gauss.cpp	Gaussian Elimination
 stirling.cpp	Stirling 1
 chinese_remainder.cpp	Chinese remainder
 Stirling2.tex	Stirling 2
-PopularLP.tex	Popular LP
 LPDuality.tex	Duality of LP
 ExtendedCatalan.tex	Extended catalan
 Polynomial.tex	Find polynomial from it's points
 
 [Constants]
 NumberOfPrimes.txt	Number of primes
-Factorials.txt	Factorials
-PowersOf3.txt	Powers of 3
-C_2n,n_.txt	C(2n,n)
 MostDivisor.txt	Most divisor
 comb.pdf	Combinatorics Cheat Sheet
