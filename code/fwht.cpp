@@ -11,6 +11,6 @@ inline void FWHT(ll* A, bool inv) {
 	
 	if (inv) {
 		for (int i = 0; i < (1 << m); i++)
-			A[i] >>= m;
+			A[i] = A[i] * powmod((1 << m), mod - 2);
 	}
 }
