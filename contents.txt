@@ -3,6 +3,7 @@ tester.sh	Tester for Bash
 
 [Number theory]
 primality_test.cpp	Primality Test
+pollard.cpp	Fast Factorization
 linear_sieve.cpp	Linear Sieve
 integration.cpp	Integration
 extended_euclidean.cpp	Extended Euclidean Algorithm

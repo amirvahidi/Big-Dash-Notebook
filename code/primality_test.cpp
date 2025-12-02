@@ -1,42 +1,25 @@
-using u64 = uint64_t;
-using u128 = __uint128_t;
-u64 binpower(u64 base, u64 e, u64 mod) {
-    u64 result = 1;
-    base %= mod;
-    while (e) {
-        if (e & 1)
-            result = (u128)result * base % mod;
-        base = (u128)base * base % mod;
-        e >>= 1;
-    }
-    return result;
+typedef unsigned long long ull;
+ull modmul(ull a, ull b, ull M) {
+	ll ret = a * b - M * ull(1.L / M * a * b);
+	return ret + M * (ret < 0) - M * (ret >= (ll)M);
 }
-bool check_composite(u64 n, u64 a, u64 d, int s) {
-    u64 x = binpower(a, d, n);
-    if (x == 1 || x == n - 1)
-        return false;
-    for (int r = 1; r < s; r++) {
-        x = (u128)x * x % n;
-        if (x == n - 1)
-            return false;
-    }
-    return true;
+ull modpow(ull b, ull e, ull mod) {
+	ull ans = 1;
+	for (; e; b = modmul(b, b, mod), e /= 2)
+		if (e & 1) ans = modmul(ans, b, mod);
+	return ans;
 }
-bool MillerRabin(u64 n) { // true if n is prime, else false.
-    if (n < 2)
-        return false;
-    int r = 0;
-    u64 d = n - 1;
-    while ((d & 1) == 0) {
-        d >>= 1;
-        r++;
-    }
-    // for a 32 bit integer it is only necessary to check [2, 3, 5, 7] 
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-        if (n == a)
-            return true;
-        if (check_composite(n, a, d, r))
-            return false;
-    }
-    return true;
+
+bool isPrime(ull n) {
+	if (n < 2 || n % 6 % 4 != 1) return (n | 1) == 3;
+    // for 32bit check only 2, 3, 5, 7
+	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
+	    s = __builtin_ctzll(n-1), d = n >> s;
+	for (ull a : A) {   // ^ count trailing zeroes
+		ull p = modpow(a%n, d, n), i = s;
+		while (p != 1 && p != n - 1 && a % n && i--)
+			p = modmul(p, p, n);
+		if (p != n-1 && i != s) return 0;
+	}
+	return 1;
 }
